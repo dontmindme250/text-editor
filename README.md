@@ -13,6 +13,6 @@ This command will create a new file named "text.txt".
 `create {filename}`: Create a new file \
 `edit {filename}`: Edit the selected file \
 
-**note:** \
+**notes:** \
 Make sure to type in `python text_editor.py` before each command. \
 If you want to change the name of the file, replace the `text_editor.py` in `python text_editor.py` with your preferred name.
