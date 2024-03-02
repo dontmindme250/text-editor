@@ -2,14 +2,20 @@ import os
 import sys
 
 def create_file(filename):
-    if not os.path.exists(filename):
+    try:
+        # Function for creating a new file. Eg: `>create {fileName}`.
         with open(filename, 'w') as file:
-            print("File created successfully!")
-    else:
-        print("File already exists!")
+            print("File created successfully")
+    except FileNotFoundError:
+        print("File already exists")
+    except FileExistsError:
+        print("File already exists")
+    except Exception as e:
+        print(f"An error occured: {e}")
 
 def edit_file(filename):
-    if os.path.exists(filename):
+    try:
+        # Function for editing the file. Eg: `>edit {fileName}`.
         with open(filename, 'r+') as file:
             content = file.read()
             print("Current content:\n", content)
@@ -17,14 +23,12 @@ def edit_file(filename):
             file.seek(0)
             file.write(new_content)
             file.truncate()
+            print()
             print("File edited successfully!")
-    else:
+    except FileNotFoundError:
         print("File does not exist!")
-
-def save_file(filename, content):
-    with open(filename, 'w') as file:
-        file.write(content)
-        print("File saved successfully!")
+    except Exception as e:
+        print(f"An error occured: {e}")
 
 def main(args):
     if len(args) < 2:
@@ -38,12 +42,6 @@ def main(args):
         create_file(filename)
     elif option == 'edit':
         edit_file(filename)
-    elif option == 'save':
-        if len(args) < 4:
-            print("Usage: python text_editor.py save <filename> <content>")
-            return
-        content = args[3]
-        save_file(filename, content)
     else:
         print("Invalid option!")
 
